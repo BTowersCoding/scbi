@@ -1,4 +1,4 @@
-# shadow-reagent
+# scbi
 
 Like the [official quickstart](https://github.com/thheller/shadow-cljs), but without the extra steps.
 

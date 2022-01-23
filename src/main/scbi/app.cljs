@@ -1,5 +1,7 @@
-(ns shadow-reagent.app
-  (:require [reagent.dom :as rdom]))
+(ns scbi.app
+  (:require [reagent.dom :as rdom]
+            [scbi.img.factories :as factories]
+            [scbi.img.stores :as stores]))
 
 (defn square-root
   [x]
@@ -7,7 +9,8 @@
 
 (defn app []
   [:div#app
-   [:h1 "shadow-cljs reagent template"]])
+    [:svg {:width 300 :height 200}
+            stores/nails]])
 
 (defn render []
   (rdom/render [app]
