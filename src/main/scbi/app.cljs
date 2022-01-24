@@ -1,13 +1,15 @@
 (ns scbi.app
-  (:require [reagent.dom :as rdom]
-            [scbi.img.factories :as factories]
-            [scbi.img.stores :as stores]))
+  (:require 
+   [reagent.core :as r]
+   [reagent.dom :as rdom]
+   [scbi.img.factories :as factories]
+   [scbi.img.stores :as stores]))
 
 (defn square-root
   [x]
   (.sqrt js/Math x))
 
-  
+(defonce hover (r/atom nil))  
 
 (defn app []
   [:div#app
@@ -85,7 +87,35 @@
      (into [:g {:transform "translate(110,1010)"}] stores/refrigerator)
      (into [:g {:transform "translate(210,1010)"}] stores/lighting-system)
      (into [:g {:transform "translate(310,1010)"}] stores/tv)
-     (into [:g {:transform "translate(410,1010)"}] stores/microwave)]]])
+     (into [:g {:transform "translate(410,1010)"}] stores/microwave)
+
+     ;hover targets --up
+     (into [:g]
+           (for [x (range 7)
+                 y (range 11)]
+             [:rect {:x      (* x 100)
+                     :y      (* y 100)
+                     :width  100
+                     :height 50
+                     :visibility "hidden"
+                     :pointer-events "all"
+                     :on-mouse-over #(reset! hover [x y :up])}]))
+     
+      ;hover targets --down
+     (into [:g]
+           (for [x (range 7)
+                 y (range 11)]
+             [:rect {:x              (* x 100)
+                     :y              (+ 50 (* y 100))
+                     :width          100
+                     :height         50
+                     :visibility     "hidden"
+                     :pointer-events "all"
+                     :on-mouse-over  #(reset! hover [x y :down])}]))
+     
+     ]
+     
+     [:p (str "Hover: " @hover)]]])
 
 (defn render []
   (rdom/render [app]
