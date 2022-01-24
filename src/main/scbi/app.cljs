@@ -99,7 +99,8 @@
                      :height 50
                      :visibility "hidden"
                      :pointer-events "all"
-                     :on-mouse-over #(reset! hover [x y :up])}]))
+                     :on-mouse-over #(reset! hover [x y :up])
+                     :on-mouse-out #(reset! hover nil)}]))
      
       ;hover targets --down
      (into [:g]
@@ -111,9 +112,29 @@
                      :height         50
                      :visibility     "hidden"
                      :pointer-events "all"
-                     :on-mouse-over  #(reset! hover [x y :down])}]))
+                     :on-mouse-over  #(reset! hover [x y :down])
+                     :on-mouse-out #(reset! hover nil)}]))
      
-     ]
+     ;up arrows
+ (into [:g]
+       (for [x (range 7)
+             y (range 11)
+             :when (= @hover [x y :up])]
+        [:path.fade {:d "M0 21.5H9V39H32V21.5H41L20.5 0" :fill "#0C0"
+                     :transform (str "translate(" (+ 25 (* x 100)) "," (* y 100) ")")
+                     :pointer-events "none"}]))
+
+     ;down arrows
+     (into [:g]
+           (for [x (range 7)
+                 y (range 11)
+                  :when (= @hover [x y :down])]
+             [:path.fade {:d "M9 0v17.5h-9l20.5 21.5 20.5-21.5h-9V0z" :fill "#f00"
+                          :transform (str "translate(" (+ 25 (* x 100)) "," (+ 60 (* y 100)) ")")
+                          :pointer-events "none"}]))
+
+     
+    ]
      
      [:p (str "Hover: " @hover)]]])
 
