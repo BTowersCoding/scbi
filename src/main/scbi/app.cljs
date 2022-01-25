@@ -2,8 +2,10 @@
   (:require 
    [reagent.core :as r]
    [reagent.dom :as rdom]
+   [scbi.items :as items]
    [scbi.img.factories :as factories]
-   [scbi.img.stores :as stores]))
+   [scbi.img.stores :as stores]
+   [scbi.img.util :as util]))
 
 (defn square-root
   [x]
@@ -11,20 +13,78 @@
 
 (defonce hover (r/atom nil))  
 
+(defonce upgrades (r/atom []))
+
+(defonce building (r/atom 0))
+
+(defonce inventory 
+  (r/atom (zipmap
+           (for [x (range 7)
+                 y (range 11)] [x y])
+           (repeat 0))))
+
+(defn building-selector []
+  (let [hovered (r/atom nil)]
+    (fn []
+      [:div
+       [:span
+        [:svg {:width     30
+               :view-box  "0 -0.5 10 11"
+               :transform (str "translate(0,10)" (when-not (= @hovered :left) "scale(0.7)"))
+               :cursor    "pointer"
+               :on-mouse-over #(reset! hovered :left)
+               :on-mouse-out #(reset! hovered nil)
+               :on-click  #(if (= 0 @building)
+                             (reset! building (dec (count @upgrades)))
+                             (swap! building dec))}
+         [:path {:stroke "#000000"
+                 :d      "M4 0h1M3 1h2M2 2h1M4 2h3M1 3h1M0 4h1M1 5h1M2 6h1M4 6h3M3 7h2M4 8h1"}]
+         [:path {:stroke "#f8f800"
+                 :d      "M3 2h1M2 3h5M1 4h6M2 5h5M3 6h1"}]]
+    (str "Building: " @building)
+        [:svg {:width         30
+               :view-box      "0 -0.5 10 11"
+               :transform     (str "translate (0,5),rotate (180)" (when-not (= @hovered :right) "scale(0.7)"))
+               :cursor        "pointer"
+               :on-mouse-over #(reset! hovered :right)
+               :on-mouse-out  #(reset! hovered nil)
+               :on-click      #(if (= (dec (count @upgrades)) @building)
+                                 (reset! building 0)
+                                 (swap! building inc))}
+         [:path {:stroke "#000000"
+                 :d      "M4 0h1M3 1h2M2 2h1M4 2h3M1 3h1M0 4h1M1 5h1M2 6h1M4 6h3M3 7h2M4 8h1"}]
+         [:path {:stroke "#f8f800"
+                 :d      "M3 2h1M2 3h5M1 4h6M2 5h5M3 6h1"}]]
+    [:svg {:width         (if (= @hovered :plus) 25 20)
+           :viewBox       "-1 -1 50 50"
+           :on-mouse-over #(reset! hovered :plus)
+           :on-mouse-out  #(reset! hovered nil)}
+     [:g
+      [:circle {:cx       25
+                :cy       25
+                :r        20
+                :fill     "green"
+                :on-click #(swap! upgrades conj {})}]
+      [:path {:fill           "white" 
+              :pointer-events "none"
+              :d              "M19.5 13.25 19.5 19.5 13.25 19.5 13.25 28.875 13.25 28.875 19.5 28.875 19.5 35.125 28.875 35.125 28.875 28.875 35.125 28.875 35.125 19.5 28.875 19.5 28.875 13.25Z"}]]]]
+       [:br]
+       [:div
+        [:textarea
+         {:rows      10
+          :cols      30
+          :value   (str @upgrades)
+          :read-only true}]]])))
+
 (defn app []
   [:div#app
    [:div#grid
-    [:svg {:width   "100%"
-           :viewBox "-1 -1 702 1102"}
+    [:svg {:width   "50%" :viewBox "-1 -1 702 1102"}
      (into [:g]
-           (for [x (range 7)
-                 y (range 11)]
-             [:rect {:x      (* x 100)
-                     :y      (* y 100)
-                     :width  100
-                     :height 100
-                     :fill   "none"
-                     :stroke "black"}]))
+           (for [x (range 7) y (range 11)]
+             [:rect {:x      (* x 100) :y (* y 100)
+                     :width  100 :height 100
+                     :fill   "none" :stroke "black"}]))
      (into [:g {:transform "translate(10,10)"}] factories/metal)
      (into [:g {:transform "translate(110,10)"}] factories/wood)
      (into [:g {:transform "translate(210,10)"}] factories/plastic)
@@ -91,12 +151,9 @@
 
      ;hover targets --up
      (into [:g]
-           (for [x (range 7)
-                 y (range 11)]
-             [:rect {:x      (* x 100)
-                     :y      (* y 100)
-                     :width  100
-                     :height 50
+           (for [x (range 7) y (range 11)]
+             [:rect {:x      (* x 100) :y      (* y 100)
+                     :width  100 :height 50
                      :visibility "hidden"
                      :pointer-events "all"
                      :on-mouse-over #(reset! hover [x y :up])
@@ -104,12 +161,9 @@
      
       ;hover targets --down
      (into [:g]
-           (for [x (range 7)
-                 y (range 11)]
-             [:rect {:x              (* x 100)
-                     :y              (+ 50 (* y 100))
-                     :width          100
-                     :height         50
+           (for [x (range 7)  y (range 11)]
+             [:rect {:x              (* x 100) :y              (+ 50 (* y 100))
+                     :width          100  :height         50
                      :visibility     "hidden"
                      :pointer-events "all"
                      :on-mouse-over  #(reset! hover [x y :down])
@@ -117,8 +171,7 @@
      
      ;up arrows
  (into [:g]
-       (for [x (range 7)
-             y (range 11)
+       (for [x (range 7)  y (range 11)
              :when (= @hover [x y :up])]
         [:path.fade {:d "M0 21.5H9V39H32V21.5H41L20.5 0" :fill "#0C0"
                      :transform (str "translate(" (+ 25 (* x 100)) "," (* y 100) ")")
@@ -126,17 +179,17 @@
 
      ;down arrows
      (into [:g]
-           (for [x (range 7)
-                 y (range 11)
+           (for [x (range 7)  y (range 11)
                   :when (= @hover [x y :down])]
              [:path.fade {:d "M9 0v17.5h-9l20.5 21.5 20.5-21.5h-9V0z" :fill "#f00"
                           :transform (str "translate(" (+ 25 (* x 100)) "," (+ 60 (* y 100)) ")")
-                          :pointer-events "none"}]))
+                          :pointer-events "none"}]))]
+     
 
-     
-    ]
-     
-     [:p (str "Hover: " @hover)]]])
+[building-selector]
+]])
+
+@upgrades
 
 (defn render []
   (rdom/render [app]
