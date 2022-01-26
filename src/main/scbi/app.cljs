@@ -62,8 +62,10 @@
      [:g
       [:circle {:cx            25
                 :cy            25
-                :r             (if (= @hovered :plus) 25 20)
+                :r             (if (= @hovered :plus) 22 20)
                 :fill          "green"
+                :stroke        (when (= @hovered :plus) "black")
+                :stroke-width  4
                 :on-mouse-over #(reset! hovered :plus)
                 :on-mouse-out  #(reset! hovered nil)
                 :on-click      #(swap! upgrades conj [])}]
@@ -73,8 +75,10 @@
      ;; remove building
       [:circle {:cx            75
                 :cy            25
-                :r             (if (= @hovered :minus) 25 20)
+                :r             (if (= @hovered :minus) 22 20)
                 :fill          "red"
+                :stroke (when (= @hovered :minus) "black")
+                :stroke-width 4
                 :on-mouse-over #(reset! hovered :minus)
                 :on-mouse-out  #(reset! hovered nil)
                 :on-click      #(swap! upgrades conj {})}]
