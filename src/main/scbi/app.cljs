@@ -55,19 +55,35 @@
                  :d      "M4 0h1M3 1h2M2 2h1M4 2h3M1 3h1M0 4h1M1 5h1M2 6h1M4 6h3M3 7h2M4 8h1"}]
          [:path {:stroke "#f8f800"
                  :d      "M3 2h1M2 3h5M1 4h6M2 5h5M3 6h1"}]]
-    [:svg {:width         (if (= @hovered :plus) 25 20)
-           :viewBox       "-1 -1 50 50"
-           :on-mouse-over #(reset! hovered :plus)
-           :on-mouse-out  #(reset! hovered nil)}
+    
+    ;; Add building
+    [:svg {:width   50
+           :viewBox "-1 -1 100 50"}
      [:g
-      [:circle {:cx       25
-                :cy       25
-                :r        20
-                :fill     "green"
-                :on-click #(swap! upgrades conj {})}]
+      [:circle {:cx            25
+                :cy            25
+                :r             (if (= @hovered :plus) 25 20)
+                :fill          "green"
+                :on-mouse-over #(reset! hovered :plus)
+                :on-mouse-out  #(reset! hovered nil)
+                :on-click      #(swap! upgrades conj [])}]
       [:path {:fill           "white" 
               :pointer-events "none"
-              :d              "M19.5 13.25 19.5 19.5 13.25 19.5 13.25 28.875 13.25 28.875 19.5 28.875 19.5 35.125 28.875 35.125 28.875 28.875 35.125 28.875 35.125 19.5 28.875 19.5 28.875 13.25Z"}]]]]
+              :d              "M19.5 13.25 19.5 19.5 13.25 19.5 13.25 28.875 13.25 28.875 19.5 28.875 19.5 35.125 28.875 35.125 28.875 28.875 35.125 28.875 35.125 19.5 28.875 19.5 28.875 13.25Z"}]
+     ;; remove building
+      [:circle {:cx            75
+                :cy            25
+                :r             (if (= @hovered :minus) 25 20)
+                :fill          "red"
+                :on-mouse-over #(reset! hovered :minus)
+                :on-mouse-out  #(reset! hovered nil)
+                :on-click      #(swap! upgrades conj {})}]
+      [:line {:stroke "white"
+              :stroke-width 10 :pointer-events "none"
+              :x1 65 :y1 25
+              :x2 85 :y2 25}]
+      ]]
+    ]
        [:br]
        [:div
         [:textarea
@@ -149,7 +165,7 @@
      (into [:g {:transform "translate(310,1010)"}] stores/tv)
      (into [:g {:transform "translate(410,1010)"}] stores/microwave)
 
-     ;hover targets --up
+     ;mouse targets --up
      (into [:g]
            (for [x (range 7) y (range 11)]
              [:rect {:x      (* x 100) :y      (* y 100)
@@ -157,9 +173,10 @@
                      :visibility "hidden"
                      :pointer-events "all"
                      :on-mouse-over #(reset! hover [x y :up])
-                     :on-mouse-out #(reset! hover nil)}]))
+                     :on-mouse-out #(reset! hover nil)
+                     :on-click (fn [] (swap! upgrades assoc @building (conj (get @upgrades @building) [x y :up])))}]))
      
-      ;hover targets --down
+      ;mouse targets --down
      (into [:g]
            (for [x (range 7)  y (range 11)]
              [:rect {:x              (* x 100) :y              (+ 50 (* y 100))
@@ -167,7 +184,8 @@
                      :visibility     "hidden"
                      :pointer-events "all"
                      :on-mouse-over  #(reset! hover [x y :down])
-                     :on-mouse-out #(reset! hover nil)}]))
+                     :on-mouse-out #(reset! hover nil)
+                     :on-click (fn [] (swap! upgrades assoc @building (conj (get @upgrades @building) [x y :down])))}]))
      
      ;up arrows
  (into [:g]
