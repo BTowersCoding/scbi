@@ -186,12 +186,18 @@
    (for [[col row] (keys (group-by butlast (get @upgrades @building)))
          :when     (pos? (count-item (get @upgrades @building) row col))]
      ^{:key [col row]}
-     [:svg {:xmlns "http://www.w3.org/2000/svg", :width "77.3", :height "77.3", :viewBox "0 0 77.3 77.3"}
+     [:svg {:xmlns "http://www.w3.org/2000/svg", :width "77.3", :height "77.3", :viewBox "0 0 77.3 79"}
      [:g (get-in items [row col])
-      [:text  {:x 65 :y 70 :font-size 22 :text-anchor "right" :fill "black"}
+      [:text  {:x 70 :y 70 :font-size 18 :text-anchor "right" :font-weight "bold" :fill "black"}
        (count-item (get @upgrades @building) row col)]
       ]
     ]))]])
+
+(map keys items/stores)
+
+(for [[col row] (keys (group-by butlast (get @upgrades @building)))
+         :when     (pos? (count-item (get @upgrades @building) row col))]
+  [(get-in items [row col]) (count-item (get @upgrades @building) row col)])
 
 (defn render []
   (rdom/render [app]
