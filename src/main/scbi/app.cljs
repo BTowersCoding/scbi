@@ -173,11 +173,12 @@
              [:path.fade {:d "M9 0v17.5h-9l20.5 21.5 20.5-21.5h-9V0z" :fill "#f00"
                           :transform (str "translate(" (+ 22.5 (* x 95)) "," (+ 60 (* y 95)) ")")
                           :pointer-events "none"}]))]
-    (into [:g]
-          (for [[col row] (keys (group-by butlast (get @upgrades @building)))
-                :when     (pos? (count-item (get @upgrades @building) row col))]
-            [:g (get-in items [row col])
-             (count-item (get @upgrades @building) row col)]))
+  (doall
+   (for [[col row] (keys (group-by butlast (get @upgrades @building)))
+         :when     (pos? (count-item (get @upgrades @building) row col))]
+     ^{:key [col row]}
+     [:span (get-in items [row col])
+      (count-item (get @upgrades @building) row col)]))
     [building-selector]]])
 
 (defn render []
