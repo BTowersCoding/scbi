@@ -673,3 +673,38 @@ clj꞉scbi.app꞉> 
 clj꞉scbi.app꞉> 
 [[[1 10 :up] [2 10 :up] [2 10 :down] [1 10 :down] [0 10 :up]]]
 clj꞉scbi.app꞉> 
+[[[1 8 :up] [1 8 :up] [1 8 :up] [1 2 :up] [1 2 :up] [1 2 :up] [1 2 :up] [4 7 :up] [4 7 :up] [4 7 :up] [2 5 :up] [2 5 :up] [2 5 :up]] [[1 7 :up] [1 7 :up] [1 5 :up] [1 5 :up] [0 7 :up] [0 7 :up] [0 7 :up] [0 7 :up] [3 5 :up] [3 5 :up] [3 5 :up] [2 6 :up] [2 6 :up] [2 6 :up]] [[3 0 :up] [3 0 :up] [3 0 :up] [3 0 :up] [3 0 :up] [3 0 :up] [2 4 :up] [2 4 :up] [2 4 :up] [2 4 :up] [2 4 :up] [3 1 :up] [3 1 :up] [3 1 :up] [3 1 :up] [3 1 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [3 4 :up] [3 4 :up] [3 4 :up] [3 4 :down] [3 4 :down] [3 4 :down]] [[3 4 :up] [3 4 :up] [3 4 :up] [5 3 :up] [5 3 :up] [0 6 :up] [0 6 :up] [0 6 :up] [5 1 :up] [5 1 :up] [5 1 :up] [2 10 :up] [2 10 :down]]]
+clj꞉scbi.app꞉> 
+("stuff" "stuff")
+clj꞉scbi.app꞉> 
+("stuff" "s" "t" "u" "f" "f")
+clj꞉scbi.app꞉> 
+("stuff" "stuff")
+clj꞉scbi.app꞉> 
+nil
+; ------ WARNING - :fn-arity -----------------------------------------------------
+;  Resource: <eval>:1:1
+ Wrong number of args (4) passed to cljs.core/into
+--------------------------------------------------------------------------------
+
+clj꞉scbi.app꞉> 
+[["stuff"] []]
+clj꞉scbi.app꞉> 
+([[1 8 :up] [1 8 :up] [1 8 :up] [1 2 :up] [1 2 :up] [1 2 :up] [1 2 :up] [4 7 :up] [4 7 :up] [4 7 :up] [2 5 :up] [2 5 :up] [2 5 :up]] [[1 7 :up] [1 7 :up] [1 5 :up] [1 5 :up] [0 7 :up] [0 7 :up] [0 7 :up] [0 7 :up] [3 5 :up] [3 5 :up] [3 5 :up] [2 6 :up] [2 6 :up] [2 6 :up]])
+clj꞉scbi.app꞉> 
+([[1 8 :up] [1 8 :up] [1 8 :up] [1 2 :up] [1 2 :up] [1 2 :up] [1 2 :up] [4 7 :up] [4 7 :up] [4 7 :up] [2 5 :up] [2 5 :up] [2 5 :up]])
+clj꞉scbi.app꞉> 
+()
+clj꞉scbi.app꞉> 
+([[1 8 :up] [1 8 :up] [1 8 :up] [1 2 :up] [1 2 :up] [1 2 :up] [1 2 :up] [4 7 :up] [4 7 :up] [4 7 :up] [2 5 :up] [2 5 :up] [2 5 :up]])
+clj꞉scbi.app꞉> 
+[[[1 8 :up] [1 8 :up] [1 8 :up] [1 2 :up] [1 2 :up] [1 2 :up] [1 2 :up] [4 7 :up] [4 7 :up] [4 7 :up] [2 5 :up] [2 5 :up] [2 5 :up]]]
+clj꞉scbi.app꞉> 
+[[[1 8 :up] [1 8 :up] [1 8 :up] [1 2 :up] [1 2 :up] [1 2 :up] [1 2 :up] [4 7 :up] [4 7 :up] [4 7 :up] [2 5 :up] [2 5 :up] [2 5 :up]] []]
+clj꞉scbi.app꞉> 
+[[[1 8 :up] [1 8 :up] [1 8 :up] [1 2 :up] [1 2 :up] [1 2 :up] [1 2 :up] [4 7 :up] [4 7 :up] [4 7 :up] [2 5 :up] [2 5 :up] [2 5 :up]] []]
+clj꞉scbi.app꞉> 
+([[1 7 :up] [1 7 :up] [1 5 :up] [1 5 :up] [0 7 :up] [0 7 :up] [0 7 :up] [0 7 :up] [3 5 :up] [3 5 :up] [3 5 :up] [2 6 :up] [2 6 :up] [2 6 :up]] [[3 0 :up] [3 0 :up] [3 0 :up] [3 0 :up] [3 0 :up] [3 0 :up] [2 4 :up] [2 4 :up] [2 4 :up] [2 4 :up] [2 4 :up] [3 1 :up] [3 1 :up] [3 1 :up] [3 1 :up] [3 1 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [3 4 :up] [3 4 :up] [3 4 :up] [3 4 :down] [3 4 :down] [3 4 :down]] [[3 4 :up] [3 4 :up] [3 4 :up] [5 3 :up] [5 3 :up] [0 6 :up] [0 6 :up] [0 6 :up] [5 1 :up] [5 1 :up] [5 1 :up] [2 10 :up] [2 10 :down]])
+clj꞉scbi.app꞉> 
+([[1 8 :up] [1 8 :up] [1 8 :up] [1 2 :up] [1 2 :up] [1 2 :up] [1 2 :up] [4 7 :up] [4 7 :up] [4 7 :up] [2 5 :up] [2 5 :up] [2 5 :up]] [] [[1 7 :up] [1 7 :up] [1 5 :up] [1 5 :up] [0 7 :up] [0 7 :up] [0 7 :up] [0 7 :up] [3 5 :up] [3 5 :up] [3 5 :up] [2 6 :up] [2 6 :up] [2 6 :up]] [[3 0 :up] [3 0 :up] [3 0 :up] [3 0 :up] [3 0 :up] [3 0 :up] [2 4 :up] [2 4 :up] [2 4 :up] [2 4 :up] [2 4 :up] [3 1 :up] [3 1 :up] [3 1 :up] [3 1 :up] [3 1 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [1 0 :up] [3 4 :up] [3 4 :up] [3 4 :up] [3 4 :down] [3 4 :down] [3 4 :down]] [[3 4 :up] [3 4 :up] [3 4 :up] [5 3 :up] [5 3 :up] [0 6 :up] [0 6 :up] [0 6 :up] [5 1 :up] [5 1 :up] [5 1 :up] [2 10 :up] [2 10 :down]])
+clj꞉scbi.app꞉> 

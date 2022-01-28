@@ -68,7 +68,9 @@
                     :stroke-width  4
                     :on-mouse-over #(reset! hovered :plus)
                     :on-mouse-out  #(reset! hovered nil)
-                    :on-click      #(do (swap! upgrades conj [])
+                    :on-click      #(do (reset! upgrades (vec (concat
+                                                               (conj (vec (take (inc @building) @upgrades)) [])
+                                                               (drop (inc @building) @upgrades))))
                                         (swap! building inc))}]
           [:path {:fill           "white" 
                   :pointer-events "none"
@@ -99,6 +101,13 @@
           :cols      30
           :value     (str @upgrades)
           :read-only true}]]])))
+
+(conj [["stuff"]] [])
+
+(concat
+ (conj (vec (take (inc @building) @upgrades)) [])
+ (drop (inc @building) @upgrades))
+[[1 2] [3 4]]
 
 (def items
   [[factories/metal  factories/wood factories/plastic factories/seeds factories/minerals]
@@ -179,6 +188,7 @@
                           :pointer-events "none"}]))]
   [building-selector]
   [:p]
+  ;; building upgrade items
   (doall
    (for [[col row] (keys (group-by butlast (get @upgrades @building)))
          :when     (pos? (count-item (get @upgrades @building) row col))]
