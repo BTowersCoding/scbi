@@ -109,6 +109,11 @@
    [stores/ice-cream-sandwich stores/pizza stores/burgers stores/cheese-fries stores/lemonade-bottle stores/popcorn]
    [stores/bbq-grill stores/refrigerator stores/lighting-system stores/tv stores/microwave]])
 
+(defn count-item [building col row]
+  (let [clicks (get (group-by butlast building) [row col])]
+    (- (count (filter #(= :up (last %)) clicks))
+       (count (filter #(= :down (last %)) clicks)))))
+
 (defn app []
   [:div#app
    [:div#grid
@@ -167,14 +172,11 @@
                           :transform (str "translate(" (+ 22.5 (* x 95)) "," (+ 60 (* y 95)) ")")
                           :pointer-events "none"}]))]
      
-(get-in  items [9 0])
-"2"
+(get-in items [9 0])
+(count-item (get @upgrades @building) 0 9)
 [building-selector]]])
 
-(defn count-item [building col row]
-  (let [clicks (get (group-by butlast building) [row col])]
-    (- (count (filter #(= :up (last %)) clicks))
-       (count (filter #(= :down (last %)) clicks)))))
+
 
 (comment
   (count-item (first @upgrades) 0 9)
