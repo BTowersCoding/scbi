@@ -102,13 +102,6 @@
           :value     (str @upgrades)
           :read-only true}]]])))
 
-(conj [["stuff"]] [])
-
-(concat
- (conj (vec (take (inc @building) @upgrades)) [])
- (drop (inc @building) @upgrades))
-[[1 2] [3 4]]
-
 (def items
   [[factories/metal  factories/wood factories/plastic factories/seeds factories/minerals]
    [factories/chemicals factories/textiles factories/sugar-and-spices factories/glass factories/animal-feed factories/ic]
@@ -193,9 +186,12 @@
    (for [[col row] (keys (group-by butlast (get @upgrades @building)))
          :when     (pos? (count-item (get @upgrades @building) row col))]
      ^{:key [col row]}
-     [:span (get-in items [row col])
-      (count-item (get @upgrades @building) row col)]))
-    ]])
+     [:svg {:xmlns "http://www.w3.org/2000/svg", :width "77.3", :height "77.3", :viewBox "0 0 77.3 77.3"}
+     [:g (get-in items [row col])
+      [:text  {:x 65 :y 70 :font-size 22 :text-anchor "right" :fill "black"}
+       (count-item (get @upgrades @building) row col)]
+      ]
+    ]))]])
 
 (defn render []
   (rdom/render [app]
