@@ -654,3 +654,22 @@ false
 clj꞉scbi.app꞉> 
 true
 clj꞉scbi.app꞉> 
+:repl/exception!
+; 
+; Execution error (Error) at (<cljs repl>:1).
+No protocol method IMap.-dissoc defined for type cljs.core/PersistentVector: ["here" "we" "are"]
+clj꞉scbi.app꞉> 
+[[[1 10 :up] [2 10 :up] [2 10 :down] [1 10 :down] [0 10 :up]] [[2 10 :up]]]
+clj꞉scbi.app꞉> 
+[[[1 10 :up] [2 10 :up] [2 10 :down] [1 10 :down] [0 10 :up]]]
+clj꞉scbi.app꞉> 
+[]
+clj꞉scbi.app꞉> 
+[[[2 10 :up]]]
+clj꞉scbi.app꞉> 
+[]
+clj꞉scbi.app꞉> 
+([[1 10 :up] [2 10 :up] [2 10 :down] [1 10 :down] [0 10 :up]])
+clj꞉scbi.app꞉> 
+[[[1 10 :up] [2 10 :up] [2 10 :down] [1 10 :down] [0 10 :up]]]
+clj꞉scbi.app꞉> 

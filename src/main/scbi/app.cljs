@@ -30,7 +30,7 @@
        [:span
         [:svg {:width     30
                :view-box  "0 -0.5 10 11"
-               :transform (str "translate(0,10)" (when-not (= @hovered :left) "scale(0.7)"))
+               :transform (str "translate(0,10)" (when-not (= @hovered :left) "scale(0.8)"))
                :cursor    "pointer"
                :on-mouse-over #(reset! hovered :left)
                :on-mouse-out #(reset! hovered nil)
@@ -44,7 +44,7 @@
     (str "Building: " @building)
         [:svg {:width         30
                :view-box      "0 -0.5 10 11"
-               :transform     (str "translate (0,5),rotate (180)" (when-not (= @hovered :right) "scale(0.7)"))
+               :transform     (str "translate (0,5),rotate (180)" (when-not (= @hovered :right) "scale(0.8)"))
                :cursor        "pointer"
                :on-mouse-over #(reset! hovered :right)
                :on-mouse-out  #(reset! hovered nil)
@@ -68,7 +68,8 @@
                 :stroke-width  4
                 :on-mouse-over #(reset! hovered :plus)
                 :on-mouse-out  #(reset! hovered nil)
-                :on-click      #(swap! upgrades conj [])}]
+                :on-click      #(do (swap! upgrades conj [])
+                                    (swap! building inc))}]
       [:path {:fill           "white" 
               :pointer-events "none"
               :d              "M19.5 13.25 19.5 19.5 13.25 19.5 13.25 28.875 13.25 28.875 19.5 28.875 19.5 35.125 28.875 35.125 28.875 28.875 35.125 28.875 35.125 19.5 28.875 19.5 28.875 13.25Z"}]
@@ -81,9 +82,10 @@
                 :stroke-width 4
                 :on-mouse-over #(reset! hovered :minus)
                 :on-mouse-out  #(reset! hovered nil)
-                :on-click      #(reset! upgrades (concat
-                                                  (subvec (vec @upgrades) 0 @building)
-                                                  (subvec (vec @upgrades) (inc @building) (count @upgrades))))}]
+                :on-click      #(do (reset! upgrades (vec (concat
+                                                           (subvec @upgrades 0 @building)
+                                                           (subvec @upgrades (inc @building) (count @upgrades)))))
+                                    (swap! building dec))}]
       [:line {:stroke "white"
               :stroke-width 10 :pointer-events "none"
               :x1 65 :y1 25
