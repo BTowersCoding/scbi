@@ -136,7 +136,9 @@
                      :pointer-events "all"
                      :on-mouse-over #(reset! hover [x y :up])
                      :on-mouse-out #(reset! hover nil)
-                     :on-click (fn [] (swap! upgrades assoc @building (conj (get @upgrades @building) [x y :up])))}]))
+                     :on-click 
+                     #(swap! upgrades assoc @building 
+                             (conj (get @upgrades @building) [x y :up]))}]))
      
       ;mouse targets --down
      (into [:g]
@@ -165,9 +167,9 @@
                           :transform (str "translate(" (+ 22.5 (* x 95)) "," (+ 60 (* y 95)) ")")
                           :pointer-events "none"}]))]
      
-
-[building-selector]
-]])
+(get-in  items [9 0])
+"2"
+[building-selector]]])
 
 (defn render []
   (rdom/render [app]
