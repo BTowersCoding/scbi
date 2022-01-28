@@ -28,20 +28,20 @@
     (fn []
       [:div
        [:span
-        [:svg {:width     30
-               :view-box  "0 -0.5 10 11"
-               :transform (str "translate(0,10)" (when-not (= @hovered :left) "scale(0.8)"))
-               :cursor    "pointer"
+        [:svg {:width         30
+               :view-box      "0 -0.5 10 11"
+               :transform     (str "translate(0,10)" (when-not (= @hovered :left) "scale(0.8)"))
+               :cursor        "pointer"
                :on-mouse-over #(reset! hovered :left)
-               :on-mouse-out #(reset! hovered nil)
-               :on-click  #(if (= 0 @building)
-                             (reset! building (dec (count @upgrades)))
-                             (swap! building dec))}
+               :on-mouse-out  #(reset! hovered nil)
+               :on-click      #(if (= 0 @building)
+                                 (reset! building (dec (count @upgrades)))
+                                 (swap! building dec))}
          [:path {:stroke "#000000"
                  :d      "M4 0h1M3 1h2M2 2h1M4 2h3M1 3h1M0 4h1M1 5h1M2 6h1M4 6h3M3 7h2M4 8h1"}]
          [:path {:stroke "#f8f800"
                  :d      "M3 2h1M2 3h5M1 4h6M2 5h5M3 6h1"}]]
-    (str "Building: " @building)
+        (str "Building: " @building)
         [:svg {:width         30
                :view-box      "0 -0.5 10 11"
                :transform     (str "translate (0,5),rotate (180)" (when-not (= @hovered :right) "scale(0.8)"))
@@ -55,47 +55,49 @@
                  :d      "M4 0h1M3 1h2M2 2h1M4 2h3M1 3h1M0 4h1M1 5h1M2 6h1M4 6h3M3 7h2M4 8h1"}]
          [:path {:stroke "#f8f800"
                  :d      "M3 2h1M2 3h5M1 4h6M2 5h5M3 6h1"}]]
-    
+        
     ;; Add building
-    [:svg {:width   50
-           :viewBox "-1 -1 100 50"}
-     [:g
-      [:circle {:cx            25
-                :cy            25
-                :r             (if (= @hovered :plus) 22 20)
-                :fill          "green"
-                :stroke        (when (= @hovered :plus) "black")
-                :stroke-width  4
-                :on-mouse-over #(reset! hovered :plus)
-                :on-mouse-out  #(reset! hovered nil)
-                :on-click      #(do (swap! upgrades conj [])
-                                    (swap! building inc))}]
-      [:path {:fill           "white" 
-              :pointer-events "none"
-              :d              "M19.5 13.25 19.5 19.5 13.25 19.5 13.25 28.875 13.25 28.875 19.5 28.875 19.5 35.125 28.875 35.125 28.875 28.875 35.125 28.875 35.125 19.5 28.875 19.5 28.875 13.25Z"}]
+        [:svg {:width   50
+               :viewBox "-1 -1 100 50"}
+         [:g
+          [:circle {:cx            25
+                    :cy            25
+                    :r             (if (= @hovered :plus) 22 20)
+                    :fill          "green"
+                    :stroke        (when (= @hovered :plus) "black")
+                    :stroke-width  4
+                    :on-mouse-over #(reset! hovered :plus)
+                    :on-mouse-out  #(reset! hovered nil)
+                    :on-click      #(do (swap! upgrades conj [])
+                                        (swap! building inc))}]
+          [:path {:fill           "white" 
+                  :pointer-events "none"
+                  :d              "M19.5 13.25 19.5 19.5 13.25 19.5 13.25 28.875 13.25 28.875 19.5 28.875 19.5 35.125 28.875 35.125 28.875 28.875 35.125 28.875 35.125 19.5 28.875 19.5 28.875 13.25Z"}]
      ;; remove building
-      [:circle {:cx            75
-                :cy            25
-                :r             (if (= @hovered :minus) 22 20)
-                :fill          "red"
-                :stroke (when (= @hovered :minus) "black")
-                :stroke-width 4
-                :on-mouse-over #(reset! hovered :minus)
-                :on-mouse-out  #(reset! hovered nil)
-                :on-click      #(do (reset! upgrades (vec (concat
-                                                           (subvec @upgrades 0 @building)
-                                                           (subvec @upgrades (inc @building) (count @upgrades)))))
-                                    (swap! building dec))}]
-      [:line {:stroke "white"
-              :stroke-width 10 :pointer-events "none"
-              :x1 65 :y1 25
-              :x2 85 :y2 25}]]]]
-       [:br]
-       [:div
+          [:circle {:cx            75
+                    :cy            25
+                    :r             (if (= @hovered :minus) 22 20)
+                    :fill          "red"
+                    :stroke        (when (= @hovered :minus) "black")
+                    :stroke-width  4
+                    :on-mouse-over #(reset! hovered :minus)
+                    :on-mouse-out  #(reset! hovered nil)
+                    :on-click      #(do (reset! upgrades (vec (concat
+                                                               (subvec @upgrades 0 @building)
+                                                               (subvec @upgrades (inc @building) (count @upgrades)))))
+                                        (swap! building dec))}]
+          [:line {:stroke         "white"
+                  :stroke-width   10
+                  :pointer-events "none"
+                  :x1             65
+                  :y1             25
+                  :x2             85
+                  :y2             25}]]]]
+       #_[:div
         [:textarea
          {:rows      10
           :cols      30
-          :value   (str @upgrades)
+          :value     (str @upgrades)
           :read-only true}]]])))
 
 (def items
@@ -175,13 +177,15 @@
              [:path.fade {:d "M9 0v17.5h-9l20.5 21.5 20.5-21.5h-9V0z" :fill "#f00"
                           :transform (str "translate(" (+ 22.5 (* x 95)) "," (+ 60 (* y 95)) ")")
                           :pointer-events "none"}]))]
+  [building-selector]
+  [:p]
   (doall
    (for [[col row] (keys (group-by butlast (get @upgrades @building)))
          :when     (pos? (count-item (get @upgrades @building) row col))]
      ^{:key [col row]}
      [:span (get-in items [row col])
       (count-item (get @upgrades @building) row col)]))
-    [building-selector]]])
+    ]])
 
 (defn render []
   (rdom/render [app]
