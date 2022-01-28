@@ -172,17 +172,12 @@
                           :transform (str "translate(" (+ 22.5 (* x 95)) "," (+ 60 (* y 95)) ")")
                           :pointer-events "none"}]))]
     (into [:g]
-          (for [[col row] (keys (group-by butlast (get @upgrades @building)))]
+          (for [[col row] (keys (group-by butlast (get @upgrades @building)))
+                :when (pos? (count-item (get @upgrades @building) row col))]
 [:g
        (get-in items [row col])
        (count-item (get @upgrades @building) row col)]))
     [building-selector]]])
-
-(get-in items [10 1])
-(count-item (get @upgrades @building) 10 1)
-(comment
-  (count-item (first @upgrades) 9 0)
-  )
 
 (defn render []
   (rdom/render [app]

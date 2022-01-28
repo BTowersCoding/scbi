@@ -650,3 +650,7 @@ return cljs.core.conj_BANG_.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]
 }
 } in vector of length 34
 clj꞉scbi.app꞉> 
+false
+clj꞉scbi.app꞉> 
+true
+clj꞉scbi.app꞉> 
