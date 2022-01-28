@@ -154,7 +154,9 @@
                      :pointer-events "all"
                      :on-mouse-over  #(reset! hover [x y :down])
                      :on-mouse-out #(reset! hover nil)
-                     :on-click (fn [] (swap! upgrades assoc @building (conj (get @upgrades @building) [x y :down])))}]))
+                     :on-click (fn [] 
+                                 (when (pos? (count-item (get @upgrades @building) y x))
+                                   (swap! upgrades assoc @building (conj (get @upgrades @building) [x y :down]))))}]))
 
      ;up arrows
      (into [:g]
@@ -173,10 +175,9 @@
                           :pointer-events "none"}]))]
     (into [:g]
           (for [[col row] (keys (group-by butlast (get @upgrades @building)))
-                :when (pos? (count-item (get @upgrades @building) row col))]
-[:g
-       (get-in items [row col])
-       (count-item (get @upgrades @building) row col)]))
+                :when     (pos? (count-item (get @upgrades @building) row col))]
+            [:g (get-in items [row col])
+             (count-item (get @upgrades @building) row col)]))
     [building-selector]]])
 
 (defn render []
