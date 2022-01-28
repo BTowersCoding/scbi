@@ -23,6 +23,8 @@
                  y (range 11)] [x y])
            (repeat 0))))
 
+(defonce status (r/atom nil))
+
 (defn building-selector []
   (let [hovered (r/atom nil)]
     (fn []
@@ -59,7 +61,6 @@
     ;; Add building
         [:svg {:width   50
                :viewBox "-1 -1 100 50"}
-         [:g
           [:circle {:cx            25
                     :cy            25
                     :r             (if (= @hovered :plus) 22 20)
@@ -94,7 +95,17 @@
                   :x1             65
                   :y1             25
                   :x2             85
-                  :y2             25}]]]]
+                  :y2             25}]]
+    ;; status
+          (when @status
+            (let [text @status
+                  width (count text)]
+              [:svg {:width   270
+                     :viewBox "-1 -1 270 30"}
+
+               [:rect {:x 20 :y 5 :width (* width 9.5) :height 23 :fill "none" :stroke "grey"}]
+               [:text  {:x 25 :y 22 :font-size 18 :text-anchor "right" :fill "black"}
+                text]]))]
        #_[:div
         [:textarea
          {:rows      10
@@ -114,6 +125,21 @@
    [stores/cap stores/shoes stores/watch stores/business-suits stores/backpack]
    [stores/ice-cream-sandwich stores/pizza stores/burgers stores/cheese-fries stores/lemonade-bottle stores/popcorn]
    [stores/bbq-grill stores/refrigerator stores/lighting-system stores/tv stores/microwave]])
+
+(def item-names
+  [["metal"  "wood" "plastic" "seeds" "minerals"]
+   ["chemicals" "textiles" "sugar-and-spices" "glass" "animal-feed" "ic"]
+   ["nails" "planks" "bricks" "cement" "glue" "paint"]
+   ["hammer" "measuring-tape" "shovel" "cooking-utensils" "ladder" "drill"]
+   ["vegetables" "flour-bag" "fruit-and-berries" "cream" "corn" "cheese" "beef"]
+   ["chair" "tables" "home-textiles" "cupboard" "couch"]
+   ["grass" "tree-saplings" "garden-furniture" "fire-pit" "lawn-mower" "garden-gnomes"]
+   ["donuts" "green-smoothie" "bread-roll" "cherry-cheesecake" "frozen-yogurt" "coffee"]
+   ["cap" "shoes" "watch" "business-suits" "backpack"]
+   ["ice-cream-sandwich" "pizza" "burgers" "cheese-fries" "lemonade-bottle" "popcorn"]
+   ["bbq-grill" "refrigerator" "lighting-system" "tv" "microwave"]])
+
+
 
 (defn count-item [building col row]
   (let [clicks (get (group-by butlast building) [row col])]
@@ -145,8 +171,10 @@
                      :width  95 :height 47.5
                      :visibility "hidden"
                      :pointer-events "all"
-                     :on-mouse-over #(reset! hover [x y :up])
-                     :on-mouse-out #(reset! hover nil)
+                     :on-mouse-over #(do (reset! hover [x y :up])
+                                         (reset! status (str "Add " (get-in item-names [y x]))))
+                     :on-mouse-out #(do (reset! hover nil)
+                                        (reset! status nil))
                      :on-click
                      #(swap! upgrades assoc @building
                              (conj (get @upgrades @building) [x y :up]))}]))
@@ -158,8 +186,10 @@
                      :width          95  :height         47.5
                      :visibility     "hidden"
                      :pointer-events "all"
-                     :on-mouse-over  #(reset! hover [x y :down])
-                     :on-mouse-out #(reset! hover nil)
+                     :on-mouse-over #(do (reset! hover [x y :down])
+                                         (reset! status (str "Subtract " (get-in item-names [y x]))))
+                     :on-mouse-out #(do (reset! hover nil)
+                   (reset! status nil))
                      :on-click (fn [] 
                                  (when (pos? (count-item (get @upgrades @building) y x))
                                    (swap! upgrades assoc @building (conj (get @upgrades @building) [x y :down]))))}]))
@@ -188,16 +218,10 @@
      ^{:key [col row]}
      [:svg {:xmlns "http://www.w3.org/2000/svg", :width "77.3", :height "77.3", :viewBox "0 0 77.3 79"}
      [:g (get-in items [row col])
-      [:text  {:x 70 :y 70 :font-size 18 :text-anchor "right" :font-weight "bold" :fill "black"}
+      [:text  {:x 70 :y 72 :font-size 18 :text-anchor "right" :font-weight "bold" :fill "black"}
        (count-item (get @upgrades @building) row col)]
       ]
     ]))]])
-
-(map keys items/stores)
-
-(for [[col row] (keys (group-by butlast (get @upgrades @building)))
-         :when     (pos? (count-item (get @upgrades @building) row col))]
-  [(get-in items [row col]) (count-item (get @upgrades @building) row col)])
 
 (defn render []
   (rdom/render [app]
