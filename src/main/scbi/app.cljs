@@ -103,7 +103,7 @@
               [:svg {:width   270
                      :viewBox "-1 -1 270 30"}
 
-               [:rect {:x 20 :y 5 :width (* width 9.5) :height 23 :fill "none" :stroke "grey"}]
+               [:rect {:x 20 :y 5 :width (+ 25 (* width 7.7)) :height 23 :fill "none" :stroke "grey"}]
                [:text  {:x 25 :y 22 :font-size 18 :text-anchor "right" :fill "black"}
                 text]]))]
        #_[:div
