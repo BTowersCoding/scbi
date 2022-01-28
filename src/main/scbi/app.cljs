@@ -146,13 +146,16 @@
     (- (count (filter #(= :up (last %)) clicks))
        (count (filter #(= :down (last %)) clicks)))))
 
+
+
 (defn app []
   [:div#app
    [:div#grid
     [:svg {:width   "100%" :viewBox "-1 -1 702 1052"}
      ;; grid lines
      (into [:g]
-           (for [x (range 7) y (range 11)]
+           (for [x (range 7) y (range 11)
+                 :when (get-in item-names [y x])]
              [:rect {:x      (* x 95) :y (* y 95)
                      :width  95 :height 95
                      :fill   "none" :stroke "black"}]))
@@ -166,7 +169,8 @@
 
      ;mouse targets --up
      (into [:g]
-           (for [x (range 7) y (range 11)]
+           (for [x (range 7) y (range 11)
+                 :when (get-in item-names [y x])]
              [:rect {:x      (* x 95) :y      (* y 95)
                      :width  95 :height 47.5
                      :visibility "hidden"
@@ -181,7 +185,8 @@
 
       ;mouse targets --down
      (into [:g]
-           (for [x (range 7)  y (range 11)]
+           (for [x (range 7)  y (range 11)
+                 :when (get-in item-names [y x])]
              [:rect {:x              (* x 95) :y              (+ 47.5 (* y 95))
                      :width          95  :height         47.5
                      :visibility     "hidden"
