@@ -171,6 +171,15 @@
 "2"
 [building-selector]]])
 
+(defn count-item [building col row]
+  (let [clicks (get (group-by butlast building) [row col])]
+    (- (count (filter #(= :up (last %)) clicks))
+       (count (filter #(= :down (last %)) clicks)))))
+
+(comment
+  (count-item (first @upgrades) 0 9)
+  )
+
 (defn render []
   (rdom/render [app]
             (.getElementById js/document "root")))

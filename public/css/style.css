@@ -1,5 +1,5 @@
 body {
-
+font-size: larger;
 }
 
 h1 {
@@ -12,7 +12,7 @@ h3 {
 }
 
 p {
-  line-height: 0;
+
 }
 
 .fade {
@@ -21,7 +21,7 @@ p {
 
 @keyframes fade {
   0% {
-    opacity: 0;
+    opacity: 0.25;
   }
   
   100% {
