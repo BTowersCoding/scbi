@@ -34,8 +34,10 @@
                :view-box      "0 -0.5 10 11"
                :transform     (str "translate(0,10)" (when-not (= @hovered :left) "scale(0.8)"))
                :cursor        "pointer"
-               :on-mouse-over #(reset! hovered :left)
-               :on-mouse-out  #(reset! hovered nil)
+               :on-mouse-over #(do (reset! hovered :left)
+                                   (reset! status "Previous"))
+               :on-mouse-out  #(do (reset! hovered nil)
+                                   (reset! status nil))
                :on-click      #(if (= 0 @building)
                                  (reset! building (dec (count @upgrades)))
                                  (swap! building dec))}
@@ -48,8 +50,10 @@
                :view-box      "0 -0.5 10 11"
                :transform     (str "translate (0,5),rotate (180)" (when-not (= @hovered :right) "scale(0.8)"))
                :cursor        "pointer"
-               :on-mouse-over #(reset! hovered :right)
-               :on-mouse-out  #(reset! hovered nil)
+               :on-mouse-over #(do (reset! hovered :right)
+                                   (reset! status "Next"))
+               :on-mouse-out  #(do (reset! hovered nil)
+                                   (reset! status nil))
                :on-click      #(if (= (dec (count @upgrades)) @building)
                                  (reset! building 0)
                                  (swap! building inc))}
@@ -67,8 +71,10 @@
                     :fill          "green"
                     :stroke        (when (= @hovered :plus) "black")
                     :stroke-width  4
-                    :on-mouse-over #(reset! hovered :plus)
-                    :on-mouse-out  #(reset! hovered nil)
+                    :on-mouse-over #(do (reset! hovered :plus)
+                                        (reset! status "Add building"))
+                    :on-mouse-out  #(do (reset! hovered nil)
+                                        (reset! status nil))
                     :on-click      #(do (reset! upgrades (vec (concat
                                                                (conj (vec (take (inc @building) @upgrades)) [])
                                                                (drop (inc @building) @upgrades))))
@@ -83,8 +89,10 @@
                     :fill          "red"
                     :stroke        (when (= @hovered :minus) "black")
                     :stroke-width  4
-                    :on-mouse-over #(reset! hovered :minus)
-                    :on-mouse-out  #(reset! hovered nil)
+                    :on-mouse-over #(do (reset! hovered :minus)
+                                        (reset! status "Remove building"))
+                    :on-mouse-out  #(do (reset! hovered nil)
+                                        (reset! status nil))
                     :on-click      #(do (reset! upgrades (vec (concat
                                                                (subvec @upgrades 0 @building)
                                                                (subvec @upgrades (inc @building) (count @upgrades)))))
