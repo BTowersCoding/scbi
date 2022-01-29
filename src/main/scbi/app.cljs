@@ -169,7 +169,7 @@
 (defn app []
   [:div#app
    [:div#grid
-    [:svg {:width   500 :viewBox "-1 -1 702 1052"}
+    [:svg {:width   400 :viewBox "-1 -1 702 1052"}
      ;; grid lines
      (into [:g]
            (for [x (range 7) y (range 11)
@@ -244,7 +244,7 @@
       [:text  {:x 70 :y 72 :font-size 18 :text-anchor "right" :font-weight "bold" :fill "black"}
        (count-item (get @upgrades @building) row col)]
       ]]))
-
+[:p]
   ;;total items by store
   (into [:div]
         (for [[store items] (item-map)
@@ -252,7 +252,7 @@
           [:div [:span (str store ": ")]
            [:span (for [[k v] (apply merge items)]
                  (str v " " (name k) " "))]]))
-  
+  [:p]
 ;; total materials by factory
 (into [:div]
       (for [[k v] (apply merge (reverse (sort-by #(first (vals %))
