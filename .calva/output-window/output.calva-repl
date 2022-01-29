@@ -924,3 +924,33 @@ clj꞉scbi.app꞉> 
 clj꞉scbi.app꞉> 
 ("18 plastic " "6 glass " "6 chemicals " "6 wood " "6 metal " "1 seeds ")
 clj꞉scbi.app꞉> 
+{:metal 15, :wood 15, :plastic 30, :seeds 24, :chemicals 6, :glass 6}
+clj꞉scbi.app꞉> 
+:repl/exception!
+; 
+; Execution error (TypeError) at (<cljs repl>:1).
+me.cljs$core$IMapEntry$_val$arity$1 is not a function
+clj꞉scbi.app꞉> 
+:repl/exception!
+; 
+; Execution error (TypeError) at (<cljs repl>:1).
+me.cljs$core$IMapEntry$_val$arity$1 is not a function
+clj꞉scbi.app꞉> 
+:repl/exception!
+; 
+; Execution error (TypeError) at (<cljs repl>:1).
+me.cljs$core$IMapEntry$_val$arity$1 is not a function
+clj꞉scbi.app꞉> 
+[:metal 15]
+clj꞉scbi.app꞉> 
+([:chemicals 6] [:glass 6] [:metal 15] [:wood 15] [:seeds 24] [:plastic 30])
+clj꞉scbi.app꞉> 
+nil
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:2
+ Use of undeclared Var scbi.app/revverse
+--------------------------------------------------------------------------------
+
+clj꞉scbi.app꞉> 
+([:plastic 30] [:seeds 24] [:wood 15] [:metal 15] [:glass 6] [:chemicals 6])
+clj꞉scbi.app꞉> 
