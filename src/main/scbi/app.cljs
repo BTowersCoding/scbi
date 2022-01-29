@@ -170,7 +170,7 @@
 (defn app []
   [:div#app
    [:div#grid
-    [:svg {:width   "100%" :viewBox "-1 -1 702 1052"}
+    [:svg {:width   500 :viewBox "-1 -1 702 1052"}
      ;; grid lines
      (into [:g]
            (for [x (range 7) y (range 11)
