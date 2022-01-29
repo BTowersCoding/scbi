@@ -258,16 +258,13 @@
   [:p]
 ;; total materials by factory
 (into [:div]
-      (for [[k v] (merge-with +
-                              (select-keys (apply merge (buildings)) (map keyword (apply concat (take 2 item-names))))
-                              (apply merge (reverse (sort-by #(first (vals %))
-                                                             (remove #(zero? (first (vals %)))
-                                                                     (for [m items/materials]
-                                                                       {m (items/n m (let [orders (apply merge-with + (buildings))]
-                                                                                       (mapcat (fn [x] (apply #(repeat %2 %) x))
-                                                                                               (select-keys orders (keys orders)))))}))))))]
+      (for [[k v] (apply merge (reverse (sort-by #(first (vals %))
+                                                 (remove #(zero? (first (vals %)))
+                                                         (for [m items/materials]
+                                                           {m (items/n m (let [orders (apply merge-with + (buildings))]
+                                                                           (mapcat (fn [x] (apply #(repeat %2 %) x))
+                                                                                   (select-keys orders (keys orders)))))})))))]
         (str v " " (name k) " ")))]])
-
 
 (defn render []
   (rdom/render [app]

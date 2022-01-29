@@ -920,3 +920,7 @@ clj꞉scbi.app꞉> 
 clj꞉scbi.app꞉> 
 {:metal 85, :electrical-components 8, :minerals 12, :seeds 56, :chemicals 21, :plastic 54, :sugar-and-spices 19, :glass 23, :wood 47, :animal-feed 74, :textiles 51}
 clj꞉scbi.app꞉> 
+("2 seeds " "18 plastic " "6 glass " "6 chemicals " "6 wood " "6 metal ")
+clj꞉scbi.app꞉> 
+("18 plastic " "6 glass " "6 chemicals " "6 wood " "6 metal " "1 seeds ")
+clj꞉scbi.app꞉> 
