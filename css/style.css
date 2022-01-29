@@ -1,5 +1,6 @@
 body {
-font-size: large;
+  user-select: none ;
+  font-size: large;
 }
 
 h1 {
