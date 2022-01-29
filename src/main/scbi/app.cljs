@@ -147,7 +147,7 @@
                 text]]))]
        ])))
 
-(def buildings
+(defn buildings []
   (into []
         (for [building (range (count @upgrades))]
           (into {}
@@ -158,10 +158,14 @@
 (def store-names
   ["building-supplies" "hardware" "fashion" "furniture" "farmers-market" "gardening-supplies" "donut-shop" "fast-food" "home-appliances"])
 
-(zipmap store-names (map (fn [s] (items/parts s  (let [orders (apply merge-with + buildings)]
-                                                   (mapcat (fn [x] (apply #(repeat %2 %) x))
-                                                           (select-keys orders (keys orders))))))
-                         (map keys items/stores)))
+(defn item-map []
+  (zipmap store-names 
+          (map (fn [s] 
+                 (remove #(zero? (first (vals %)))
+                         (items/parts s  (let [orders (apply merge-with + (buildings))]
+                                           (mapcat (fn [x] (apply #(repeat %2 %) x))
+                                                   (select-keys orders (keys orders)))))))
+               (map keys items/stores))))
 
 (defn app []
   [:div#app
@@ -241,12 +245,31 @@
       [:text  {:x 70 :y 72 :font-size 18 :text-anchor "right" :font-weight "bold" :fill "black"}
        (count-item (get @upgrades @building) row col)]
       ]]))
+
+  ;;total items by store
+  (into [:div]
+        (for [[store items] (item-map)
+              :when (seq items)]
+          [:div [:span (str store ": ")]
+           [:span (for [[k v] (apply merge items)]
+                 (str v " " (name k) " "))]]))
+  
+;; total materials by factory
+(into [:div]
+      (for [[k v] (apply merge (reverse (sort-by #(first (vals %))
+                                                 (remove #(zero? (first (vals %)))
+                                                         (for [m items/materials]
+                                                           {m (items/n m (let [orders (apply merge-with + (buildings))]
+                                                                           (mapcat (fn [x] (apply #(repeat %2 %) x))
+                                                                                   (select-keys orders (keys orders)))))})))))]
+        (str v " " (name k) " ")))
+  
   [:div
-   [:textarea
+   #_[:textarea
     {:rows      5
      :cols      50
      :value    
-     (str  {:stores (for [store (map (fn [s] (items/parts s  (let [orders (apply merge-with + buildings)]
+     (str  {:stores (for [store (map (fn [s] (items/parts s  (let [orders (apply merge-with + (buildings))]
                                                                (mapcat (fn [x] (apply #(repeat %2 %) x))
                                                                        (select-keys orders (keys orders))))))
                                      (map keys items/stores))]
@@ -254,17 +277,19 @@
                                                  (remove #(zero? (first (vals %)))
                                                          store)))))})
      :read-only true}]
-    [:textarea
+    #_[:textarea
      {:rows      5
       :cols      50
       :value
       (str  {:factories (reverse (sort-by #(first (vals %))
-                                          (for [m items/materials]
-                                            {m (Math/round (/ (items/n m (let [orders (apply merge-with + buildings)]
-                                                                           (mapcat (fn [x] (apply #(repeat %2 %) x))
-                                                                                   (select-keys orders (keys orders)))))
-                                                              5.0))})))})
+                                          (remove #(zero? (first (vals %)))
+                                                  (for [m items/materials]
+                                                    {m (items/n m (let [orders (apply merge-with + (buildings))]
+                                                                    (mapcat (fn [x] (apply #(repeat %2 %) x))
+                                                                            (select-keys orders (keys orders)))))}))))})
       :read-only true}]]]])
+
+(apply merge '({:flour-bag 2} {:cream 1}))
 
 (defn render []
   (rdom/render [app]

@@ -804,3 +804,48 @@ nil
 clj꞉scbi.app꞉> 
 ({:seeds 11} {:plastic 6} {:metal 6} {:chemicals 4} {:wood 4} {:glass 3} {:animal-feed 1} {:textiles 1} {:minerals 1} {:electrical-components 0} {:sugar-and-spices 0})
 clj꞉scbi.app꞉> 
+({:planks 8, :paint 5} {:shovel 12, :ladder 4} {:watch 10} {} {:fruit-and-berries 7, :cream 3, :flour-bag 3, :cheese 2, :vegetables 2} {:tree-saplings 12} {} {:cheese-fries 2} {})
+clj꞉scbi.app꞉> 
+(({:nails 0} {:planks 8} {:bricks 0} {:cement 0} {:glue 0} {:paint 5}) ({:hammer 0} {:measuring-tape 0} {:shovel 12} {:cooking-utensils 0} {:ladder 4} {:drill 0}) ({:cap 0} {:shoes 0} {:watch 10} {:business-suits 0} {:backpack 0}) ({:chairs 0} {:tables 0} {:home-textiles 0} {:cupboard 0} {:couch 0}) ({:beef 0} {:vegetables 2} {:flour-bag 3} {:fruit-and-berries 7} {:cream 3} {:corn 0} {:cheese 2}) ({:grass 0} {:tree-saplings 12} {:garden-furniture 0} {:fire-pit 0} {:lawn-mower 0} {:garden-gnomes 0}) ({:donuts 0} {:green-smoothie 0} {:bread-roll 0} {:cherry-cheesecake 0} {:frozen-yogurt 0} {:coffee 0}) ({:ice-cream-sandwich 0} {:pizza 0} {:burgers 0} {:cheese-fries 2} {:lemonade-bottle 0} {:popcorn 0}) ({:bbq-grill 0} {:refrigerator 0} {:lighting-system 0} {:tv 0} {:microwave-oven 0}))
+clj꞉scbi.app꞉> 
+((:nails :planks :bricks :cement :glue :paint) (:hammer :measuring-tape :shovel :cooking-utensils :ladder :drill) (:cap :shoes :watch :business-suits :backpack) (:chairs :tables :home-textiles :cupboard :couch) (:beef :vegetables :flour-bag :fruit-and-berries :cream :corn :cheese) (:grass :tree-saplings :garden-furniture :fire-pit :lawn-mower :garden-gnomes) (:donuts :green-smoothie :bread-roll :cherry-cheesecake :frozen-yogurt :coffee) (:ice-cream-sandwich :pizza :burgers :cheese-fries :lemonade-bottle :popcorn) (:bbq-grill :refrigerator :lighting-system :tv :microwave-oven))
+clj꞉scbi.app꞉> 
+#'scbi.app/store-names
+clj꞉scbi.app꞉> 
+{"gardening-supplies" ({:grass 0} {:tree-saplings 12} {:garden-furniture 0} {:fire-pit 0} {:lawn-mower 0} {:garden-gnomes 0}), "hardware" ({:hammer 0} {:measuring-tape 0} {:shovel 12} {:cooking-utensils 0} {:ladder 4} {:drill 0}), "farmers-market" ({:beef 0} {:vegetables 2} {:flour-bag 3} {:fruit-and-berries 7} {:cream 3} {:corn 0} {:cheese 2}), "donut-shop" ({:donuts 0} {:green-smoothie 0} {:bread-roll 0} {:cherry-cheesecake 0} {:frozen-yogurt 0} {:coffee 0}), "fast-food" ({:ice-cream-sandwich 0} {:pizza 0} {:burgers 0} {:cheese-fries 2} {:lemonade-bottle 0} {:popcorn 0}), "building-supplies" ({:nails 0} {:planks 8} {:bricks 0} {:cement 0} {:glue 0} {:paint 5}), "furniture" ({:chairs 0} {:tables 0} {:home-textiles 0} {:cupboard 0} {:couch 0}), "fashion" ({:cap 0} {:shoes 0} {:watch 10} {:business-suits 0} {:backpack 0}), "home-appliances" ({:bbq-grill 0} {:refrigerator 0} {:lighting-system 0} {:tv 0} {:microwave-oven 0})}
+clj꞉scbi.app꞉> 
+(({:nails 0} {:planks 0} {:bricks 0} {:cement 0} {:glue 0} {:paint 5}) ({:hammer 0} {:measuring-tape 0} {:shovel 10} {:cooking-utensils 0} {:ladder 0} {:drill 0}) ({:cap 0} {:shoes 0} {:watch 4} {:business-suits 0} {:backpack 0}) ({:chairs 0} {:tables 0} {:home-textiles 0} {:cupboard 0} {:couch 0}) ({:beef 0} {:vegetables 0} {:flour-bag 0} {:fruit-and-berries 5} {:cream 0} {:corn 0} {:cheese 0}) ({:grass 0} {:tree-saplings 10} {:garden-furniture 0} {:fire-pit 0} {:lawn-mower 0} {:garden-gnomes 0}) ({:donuts 0} {:green-smoothie 0} {:bread-roll 0} {:cherry-cheesecake 0} {:frozen-yogurt 0} {:coffee 0}) ({:ice-cream-sandwich 0} {:pizza 0} {:burgers 0} {:cheese-fries 0} {:lemonade-bottle 0} {:popcorn 0}) ({:bbq-grill 0} {:refrigerator 0} {:lighting-system 0} {:tv 0} {:microwave-oven 0}))
+clj꞉scbi.app꞉> 
+(({:nails 0} {:planks 0} {:bricks 0} {:cement 0} {:glue 0} {:paint 5}) ({:hammer 0} {:measuring-tape 0} {:shovel 10} {:cooking-utensils 0} {:ladder 0} {:drill 0}) ({:cap 0} {:shoes 0} {:watch 4} {:business-suits 0} {:backpack 0}) ({:chairs 0} {:tables 0} {:home-textiles 0} {:cupboard 0} {:couch 0}) ({:beef 0} {:vegetables 0} {:flour-bag 0} {:fruit-and-berries 5} {:cream 0} {:corn 0} {:cheese 0}) ({:grass 0} {:tree-saplings 10} {:garden-furniture 0} {:fire-pit 0} {:lawn-mower 0} {:garden-gnomes 0}) ({:donuts 0} {:green-smoothie 0} {:bread-roll 0} {:cherry-cheesecake 0} {:frozen-yogurt 0} {:coffee 0}) ({:ice-cream-sandwich 0} {:pizza 0} {:burgers 0} {:cheese-fries 0} {:lemonade-bottle 0} {:popcorn 0}) ({:bbq-grill 0} {:refrigerator 0} {:lighting-system 0} {:tv 0} {:microwave-oven 0}))
+clj꞉scbi.app꞉> 
+{"gardening-supplies" ({:grass 0} {:tree-saplings 10} {:garden-furniture 0} {:fire-pit 0} {:lawn-mower 0} {:garden-gnomes 0}), "hardware" ({:hammer 0} {:measuring-tape 0} {:shovel 10} {:cooking-utensils 0} {:ladder 0} {:drill 0}), "farmers-market" ({:beef 0} {:vegetables 0} {:flour-bag 0} {:fruit-and-berries 5} {:cream 0} {:corn 0} {:cheese 0}), "donut-shop" ({:donuts 0} {:green-smoothie 0} {:bread-roll 0} {:cherry-cheesecake 0} {:frozen-yogurt 0} {:coffee 0}), "fast-food" ({:ice-cream-sandwich 0} {:pizza 0} {:burgers 0} {:cheese-fries 0} {:lemonade-bottle 0} {:popcorn 0}), "building-supplies" ({:nails 0} {:planks 0} {:bricks 0} {:cement 0} {:glue 0} {:paint 5}), "furniture" ({:chairs 0} {:tables 0} {:home-textiles 0} {:cupboard 0} {:couch 0}), "fashion" ({:cap 0} {:shoes 0} {:watch 4} {:business-suits 0} {:backpack 0}), "home-appliances" ({:bbq-grill 0} {:refrigerator 0} {:lighting-system 0} {:tv 0} {:microwave-oven 0})}
+clj꞉scbi.app꞉> 
+(:paint :paint :paint :paint :paint :watch :watch :watch :watch :tree-saplings :tree-saplings :tree-saplings :tree-saplings :tree-saplings :seeds :seeds :seeds :seeds :seeds :glass :glass :glass :glass :glass :fruit-and-berries :fruit-and-berries :fruit-and-berries :fruit-and-berries :fruit-and-berries :wood :wood :wood :wood :wood :wood :wood :wood :wood)
+clj꞉scbi.app꞉> 
+nil
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:14
+ Use of undeclared Var scbi.app/s
+--------------------------------------------------------------------------------
+
+clj꞉scbi.app꞉> 
+(({:nails 0} {:planks 0} {:bricks 0} {:cement 0} {:glue 0} {:paint 5}) ({:hammer 0} {:measuring-tape 0} {:shovel 10} {:cooking-utensils 0} {:ladder 0} {:drill 0}) ({:cap 0} {:shoes 0} {:watch 4} {:business-suits 0} {:backpack 0}) ({:chairs 0} {:tables 0} {:home-textiles 0} {:cupboard 0} {:couch 0}) ({:beef 0} {:vegetables 0} {:flour-bag 0} {:fruit-and-berries 5} {:cream 0} {:corn 0} {:cheese 0}) ({:grass 0} {:tree-saplings 10} {:garden-furniture 0} {:fire-pit 0} {:lawn-mower 0} {:garden-gnomes 0}) ({:donuts 0} {:green-smoothie 0} {:bread-roll 0} {:cherry-cheesecake 0} {:frozen-yogurt 0} {:coffee 0}) ({:ice-cream-sandwich 0} {:pizza 0} {:burgers 0} {:cheese-fries 0} {:lemonade-bottle 0} {:popcorn 0}) ({:bbq-grill 0} {:refrigerator 0} {:lighting-system 0} {:tv 0} {:microwave-oven 0}))
+clj꞉scbi.app꞉> 
+((:nails :planks :bricks :cement :glue :paint) (:hammer :measuring-tape :shovel :cooking-utensils :ladder :drill) (:cap :shoes :watch :business-suits :backpack) (:chairs :tables :home-textiles :cupboard :couch) (:beef :vegetables :flour-bag :fruit-and-berries :cream :corn :cheese) (:grass :tree-saplings :garden-furniture :fire-pit :lawn-mower :garden-gnomes) (:donuts :green-smoothie :bread-roll :cherry-cheesecake :frozen-yogurt :coffee) (:ice-cream-sandwich :pizza :burgers :cheese-fries :lemonade-bottle :popcorn) (:bbq-grill :refrigerator :lighting-system :tv :microwave-oven))
+clj꞉scbi.app꞉> 
+(({:nails 0} {:planks 0} {:bricks 0} {:cement 0} {:glue 0} {:paint 5}) ({:hammer 0} {:measuring-tape 0} {:shovel 10} {:cooking-utensils 0} {:ladder 0} {:drill 0}) ({:cap 0} {:shoes 0} {:watch 4} {:business-suits 0} {:backpack 0}) ({:chairs 0} {:tables 0} {:home-textiles 0} {:cupboard 0} {:couch 0}) ({:beef 0} {:vegetables 0} {:flour-bag 0} {:fruit-and-berries 5} {:cream 0} {:corn 0} {:cheese 0}) ({:grass 0} {:tree-saplings 10} {:garden-furniture 0} {:fire-pit 0} {:lawn-mower 0} {:garden-gnomes 0}) ({:donuts 0} {:green-smoothie 0} {:bread-roll 0} {:cherry-cheesecake 0} {:frozen-yogurt 0} {:coffee 0}) ({:ice-cream-sandwich 0} {:pizza 0} {:burgers 0} {:cheese-fries 0} {:lemonade-bottle 0} {:popcorn 0}) ({:bbq-grill 0} {:refrigerator 0} {:lighting-system 0} {:tv 0} {:microwave-oven 0}))
+clj꞉scbi.app꞉> 
+("1:microwave-oven" "5:tree-saplings")
+clj꞉scbi.app꞉> 
+("1microwave-oven" "5tree-saplings")
+clj꞉scbi.app꞉> 
+("1 microwave-oven" "5 tree-saplings")
+clj꞉scbi.app꞉> 
+{:flour-bag 2, :cream 1}
+clj꞉scbi.app꞉> 
+[:metal :wood :plastic :seeds :minerals :chemicals :textiles :sugar-and-spices :glass :animal-feed :electrical-components]
+clj꞉scbi.app꞉> 
+({:metal 0} {:wood 0} {:plastic 0} {:seeds 0} {:minerals 0} {:chemicals 0} {:textiles 0} {:sugar-and-spices 0} {:glass 0} {:animal-feed 0} {:electrical-components 0})
+clj꞉scbi.app꞉> 
+({:chemicals 10} {:metal 10} {:minerals 5})
+clj꞉scbi.app꞉> 
