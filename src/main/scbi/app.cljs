@@ -4,8 +4,7 @@
    [reagent.dom :as rdom]
    [scbi.items :as items]
    [scbi.img.factories :as factories]
-   [scbi.img.stores :as stores]
-   [scbi.img.util :as util]))
+   [scbi.img.stores :as stores]))
 
 (def items
   [[factories/metal  factories/wood factories/plastic factories/seeds factories/minerals]
@@ -252,13 +251,10 @@
       :value
       (str  {:factories (reverse (sort-by #(first (vals %))
                                           (for [m items/materials]
-                                            {m (Math/round (/ (items/n m (let [orders (apply merge-with + buildings)]
-                                                                           (mapcat (fn [x] (apply #(repeat %2 %) x))
-                                                                                   (select-keys orders (keys orders)))))
-                                                              5.0))})))})
+                                            {m (items/n m (let [orders (apply merge-with + buildings)]
+                                                            (mapcat (fn [x] (apply #(repeat %2 %) x))
+                                                                    (select-keys orders (keys orders)))))})))})
       :read-only true}]]]])
-
-
 
 (defn render []
   (rdom/render [app]
