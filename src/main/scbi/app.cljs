@@ -146,13 +146,25 @@
                 text]]))]
        ])))
 
-(def buildings
+(defn buildings []
   (into []
         (for [building (range (count @upgrades))]
           (into {}
                 (for [[col row] (keys (group-by butlast (get @upgrades building)))
                       :when     (pos? (count-item (get @upgrades building) row col))]
                   [(keyword (get-in item-names [row col])) (count-item (get @upgrades building) row col)])))))
+
+(def store-names
+  ["building-supplies" "hardware" "fashion" "furniture" "farmers-market" "gardening-supplies" "donut-shop" "fast-food" "home-appliances"])
+
+(defn item-map []
+  (zipmap store-names 
+          (map (fn [s] 
+                 (remove #(zero? (first (vals %)))
+                         (items/parts s  (let [orders (apply merge-with + (buildings))]
+                                           (mapcat (fn [x] (apply #(repeat %2 %) x))
+                                                   (select-keys orders (keys orders)))))))
+               (map keys items/stores))))
 
 (defn app []
   [:div#app
@@ -218,7 +230,7 @@
            (for [x (range 7)  y (range 11)
                  :when (= @hover [x y :down])]
              [:path.fade {:d "M9 0v17.5h-9l20.5 21.5 20.5-21.5h-9V0z" :fill "#f00"
-                          :transform (str "translate(" (+ 22.5 (* x 95)) "," (+ 60 (* y 95)) ")")
+                          :transform (str "translate(" (+ 22.5 (* x 95)) "," (+ 57 (* y 95)) ")")
                           :pointer-events "none"}]))]
   [building-selector]
   [:p]
@@ -232,29 +244,24 @@
       [:text  {:x 70 :y 72 :font-size 18 :text-anchor "right" :font-weight "bold" :fill "black"}
        (count-item (get @upgrades @building) row col)]
       ]]))
-  [:div
-   [:textarea
-    {:rows      5
-     :cols      50
-     :value    
-     (str  {:stores (for [store (map (fn [s] (items/parts s  (let [orders (apply merge-with + buildings)]
-                                                               (mapcat (fn [x] (apply #(repeat %2 %) x))
-                                                                       (select-keys orders (keys orders))))))
-                                     (map keys items/stores))]
-                      (into {} (reverse (sort-by #(first (vals %))
+
+  ;;total items by store
+  (into [:div]
+        (for [[store items] (item-map)
+              :when (seq items)]
+          [:div [:span (str store ": ")]
+           [:span (for [[k v] (apply merge items)]
+                 (str v " " (name k) " "))]]))
+  
+;; total materials by factory
+(into [:div]
+      (for [[k v] (apply merge (reverse (sort-by #(first (vals %))
                                                  (remove #(zero? (first (vals %)))
-                                                         store)))))})
-     :read-only true}]
-    [:textarea
-     {:rows      5
-      :cols      50
-      :value
-      (str  {:factories (reverse (sort-by #(first (vals %))
-                                          (for [m items/materials]
-                                            {m (items/n m (let [orders (apply merge-with + buildings)]
-                                                            (mapcat (fn [x] (apply #(repeat %2 %) x))
-                                                                    (select-keys orders (keys orders)))))})))})
-      :read-only true}]]]])
+                                                         (for [m items/materials]
+                                                           {m (items/n m (let [orders (apply merge-with + (buildings))]
+                                                                           (mapcat (fn [x] (apply #(repeat %2 %) x))
+                                                                                   (select-keys orders (keys orders)))))})))))]
+        (str v " " (name k) " ")))]])
 
 (defn render []
   (rdom/render [app]
