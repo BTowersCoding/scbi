@@ -765,3 +765,42 @@ clj꞉scbi.app꞉> 
 clj꞉scbi.app꞉> 
 76.5
 clj꞉scbi.app꞉> 
+("watch" "ladder" "flour-bag" "cream")
+clj꞉scbi.app꞉> 
+(["watch" 3] ["ladder" 4] ["flour-bag" 3] ["cream" 3])
+clj꞉scbi.app꞉> 
+{"watch" 3, "ladder" 4, "flour-bag" 3, "cream" 3}
+clj꞉scbi.app꞉> 
+{:watch 3, :ladder 4, :flour-bag 3, :cream 3}
+clj꞉scbi.app꞉> 
+4
+clj꞉scbi.app꞉> 
+:repl/exception!
+; 
+; Execution error (Error) at (<cljs repl>:1).
+4 is not ISeqable
+clj꞉scbi.app꞉> 
+:repl/print-error!
+; The result object failed to print. It is available via *1 if you want to interact with it.
+; The exception was: 
+; Error: 4 is not ISeqable
+clj꞉scbi.app꞉> 
+[{:watch 3, :cheese-fries 2, :fruit-and-berries 2, :microwave 3} {:paint 5, :watch 4, :tree-saplings 5} {:seeds 6, :fruit-and-berries 5, :glass 5, :wood 9} {:watch 3, :ladder 4, :flour-bag 3, :cream 3}]
+clj꞉scbi.app꞉> 
+{:flour-bag 3, :cream 3, :microwave 3, :seeds 6, :glass 5, :wood 9, :fruit-and-berries 7, :paint 5, :watch 10, :ladder 4, :tree-saplings 5, :cheese-fries 2}
+clj꞉scbi.app꞉> 
+(:flour-bag :flour-bag :flour-bag :cream :cream :cream :microwave :microwave :microwave :seeds :seeds :seeds :seeds :seeds :seeds :glass :glass :glass :glass :glass :wood :wood :wood :wood :wood :wood :wood :wood :wood :fruit-and-berries :fruit-and-berries :fruit-and-berries :fruit-and-berries :fruit-and-berries :fruit-and-berries :fruit-and-berries :paint :paint :paint :paint :paint :watch :watch :watch :watch :watch :watch :watch :watch :watch :watch :ladder :ladder :ladder :ladder :tree-saplings :tree-saplings :tree-saplings :tree-saplings :tree-saplings :cheese-fries :cheese-fries)
+clj꞉scbi.app꞉> 
+({:planks 54, :nails 22, :paint 6, :cement 4, :glue 3} {:shovel 18, :measuring-tape 2, :hammer 2} {:watch 3, :backpack 2} {:cupboard 4, :tables 2} {:corn 18, :fruit-and-berries 6, :cream 3, :flour-bag 2} {:tree-saplings 6, :garden-furniture 4, :lawn-mower 2} {:coffee 3, :donuts 2} {:popcorn 2} {:refrigerator 3, :microwave-oven 2})
+clj꞉scbi.app꞉> 
+({:planks 8, :paint 5} {:shovel 12, :ladder 4} {:watch 10} {} {:fruit-and-berries 7, :cream 3, :flour-bag 3, :cheese 2, :vegetables 2} {:tree-saplings 12} {} {:cheese-fries 2} {})
+clj꞉scbi.app꞉> 
+nil
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:2:27
+ Use of undeclared Var scbi.app/materials
+--------------------------------------------------------------------------------
+
+clj꞉scbi.app꞉> 
+({:seeds 11} {:plastic 6} {:metal 6} {:chemicals 4} {:wood 4} {:glass 3} {:animal-feed 1} {:textiles 1} {:minerals 1} {:electrical-components 0} {:sugar-and-spices 0})
+clj꞉scbi.app꞉> 

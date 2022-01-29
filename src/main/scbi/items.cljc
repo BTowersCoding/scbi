@@ -353,11 +353,6 @@
    :tree-saplings     5   :tv                4   :vegetables      11
    :watch             3})
 
-(def prod
-  (flatten
-   (map (fn [x] (apply #(repeat %2 %) x))
-        (select-keys (merge-with - orders inventory) (keys orders)))))
-
 (defn items [l]
   (mapcat #(seq (item %)) l))
 
@@ -368,16 +363,7 @@
 
 (def materials [:metal :wood :plastic :seeds :minerals :chemicals :textiles :sugar-and-spices :glass :animal-feed :electrical-components])
 
-(reverse (sort-by #(first (vals %))
-                  (for [m materials]
-                    {m (n m prod)})))
-
-(reduce +
-        (map #(first (vals %))
-             (for [m materials]
-               {m (n m prod)})))
-
-(defn parts [l]
+(defn parts [l prod]
   (for [m l]
     {m (n m prod)}))
 
@@ -387,8 +373,8 @@
     (into {} (reverse (sort-by #(first (vals %))
                                (remove #(zero? (first (vals %)))
                                        store)))))
-  :factories
-  (reverse (sort-by #(first (vals %))
+  ;:factories
+  #_(reverse (sort-by #(first (vals %))
                     (for [m materials]
                       {m (Math/round (/ (n m prod)
                                         5.0))})))}

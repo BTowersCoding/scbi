@@ -7,6 +7,32 @@
    [scbi.img.stores :as stores]
    [scbi.img.util :as util]))
 
+(def items
+  [[factories/metal  factories/wood factories/plastic factories/seeds factories/minerals]
+   [factories/chemicals factories/textiles factories/sugar-and-spices factories/glass factories/animal-feed factories/ic]
+   [stores/nails stores/planks stores/bricks stores/cement stores/glue stores/paint]
+   [stores/hammer stores/measuring-tape stores/shovel stores/cooking-utensils stores/ladder stores/drill]
+   [stores/vegetables stores/flour-bag stores/fruit-and-berries stores/cream stores/corn stores/cheese stores/beef]
+   [stores/chair stores/tables stores/home-textiles stores/cupboard stores/couch]
+   [stores/grass stores/tree-saplings stores/garden-furniture stores/fire-pit stores/lawn-mower stores/garden-gnomes]
+   [stores/donuts stores/green-smoothie stores/bread-roll stores/cherry-cheesecake stores/frozen-yogurt stores/coffee]
+   [stores/cap stores/shoes stores/watch stores/business-suits stores/backpack]
+   [stores/ice-cream-sandwich stores/pizza stores/burgers stores/cheese-fries stores/lemonade-bottle stores/popcorn]
+   [stores/bbq-grill stores/refrigerator stores/lighting-system stores/tv stores/microwave]])
+
+(def item-names
+  [["metal"  "wood" "plastic" "seeds" "minerals"]
+   ["chemicals" "textiles" "sugar-and-spices" "glass" "animal-feed" "ic"]
+   ["nails" "planks" "bricks" "cement" "glue" "paint"]
+   ["hammer" "measuring-tape" "shovel" "cooking-utensils" "ladder" "drill"]
+   ["vegetables" "flour-bag" "fruit-and-berries" "cream" "corn" "cheese" "beef"]
+   ["chair" "tables" "home-textiles" "cupboard" "couch"]
+   ["grass" "tree-saplings" "garden-furniture" "fire-pit" "lawn-mower" "garden-gnomes"]
+   ["donuts" "green-smoothie" "bread-roll" "cherry-cheesecake" "frozen-yogurt" "coffee"]
+   ["cap" "shoes" "watch" "business-suits" "backpack"]
+   ["ice-cream-sandwich" "pizza" "burgers" "cheese-fries" "lemonade-bottle" "popcorn"]
+   ["bbq-grill" "refrigerator" "lighting-system" "tv" "microwave"]])
+
 (defn square-root
   [x]
   (.sqrt js/Math x))
@@ -24,6 +50,11 @@
            (repeat 0))))
 
 (defonce status (r/atom nil))
+
+(defn count-item [building col row]
+  (let [clicks (get (group-by butlast building) [row col])]
+    (- (count (filter #(= :up (last %)) clicks))
+       (count (filter #(= :down (last %)) clicks)))))
 
 (defn building-selector []
   (let [hovered (r/atom nil)]
@@ -114,47 +145,15 @@
                [:rect {:x 20 :y 5 :width (+ 25 (* width 7.7)) :height 23 :fill "none" :stroke "grey"}]
                [:text  {:x 25 :y 22 :font-size 18 :text-anchor "right" :fill "black"}
                 text]]))]
-       #_[:div
-        [:textarea
-         {:rows      10
-          :cols      30
-          :value     (str @upgrades)
-          :read-only true}]]])))
+       ])))
 
-(def items
-  [[factories/metal  factories/wood factories/plastic factories/seeds factories/minerals]
-   [factories/chemicals factories/textiles factories/sugar-and-spices factories/glass factories/animal-feed factories/ic]
-   [stores/nails stores/planks stores/bricks stores/cement stores/glue stores/paint]
-   [stores/hammer stores/measuring-tape stores/shovel stores/cooking-utensils stores/ladder stores/drill]
-   [stores/vegetables stores/flour-bag stores/fruit-and-berries stores/cream stores/corn stores/cheese stores/beef]
-   [stores/chair stores/tables stores/home-textiles stores/cupboard stores/couch]
-   [stores/grass stores/tree-saplings stores/garden-furniture stores/fire-pit stores/lawn-mower stores/garden-gnomes]
-   [stores/donuts stores/green-smoothie stores/bread-roll stores/cherry-cheesecake stores/frozen-yogurt stores/coffee]
-   [stores/cap stores/shoes stores/watch stores/business-suits stores/backpack]
-   [stores/ice-cream-sandwich stores/pizza stores/burgers stores/cheese-fries stores/lemonade-bottle stores/popcorn]
-   [stores/bbq-grill stores/refrigerator stores/lighting-system stores/tv stores/microwave]])
-
-(def item-names
-  [["metal"  "wood" "plastic" "seeds" "minerals"]
-   ["chemicals" "textiles" "sugar-and-spices" "glass" "animal-feed" "ic"]
-   ["nails" "planks" "bricks" "cement" "glue" "paint"]
-   ["hammer" "measuring-tape" "shovel" "cooking-utensils" "ladder" "drill"]
-   ["vegetables" "flour-bag" "fruit-and-berries" "cream" "corn" "cheese" "beef"]
-   ["chair" "tables" "home-textiles" "cupboard" "couch"]
-   ["grass" "tree-saplings" "garden-furniture" "fire-pit" "lawn-mower" "garden-gnomes"]
-   ["donuts" "green-smoothie" "bread-roll" "cherry-cheesecake" "frozen-yogurt" "coffee"]
-   ["cap" "shoes" "watch" "business-suits" "backpack"]
-   ["ice-cream-sandwich" "pizza" "burgers" "cheese-fries" "lemonade-bottle" "popcorn"]
-   ["bbq-grill" "refrigerator" "lighting-system" "tv" "microwave"]])
-
-
-
-(defn count-item [building col row]
-  (let [clicks (get (group-by butlast building) [row col])]
-    (- (count (filter #(= :up (last %)) clicks))
-       (count (filter #(= :down (last %)) clicks)))))
-
-
+(def buildings
+  (into []
+        (for [building (range (count @upgrades))]
+          (into {}
+                (for [[col row] (keys (group-by butlast (get @upgrades building)))
+                      :when     (pos? (count-item (get @upgrades building) row col))]
+                  [(keyword (get-in item-names [row col])) (count-item (get @upgrades building) row col)])))))
 
 (defn app []
   [:div#app
@@ -233,8 +232,33 @@
      [:g (get-in items [row col])
       [:text  {:x 70 :y 72 :font-size 18 :text-anchor "right" :font-weight "bold" :fill "black"}
        (count-item (get @upgrades @building) row col)]
-      ]
-    ]))]])
+      ]]))
+  [:div
+   [:textarea
+    {:rows      5
+     :cols      50
+     :value    
+     (str  {:stores (for [store (map (fn [s] (items/parts s  (let [orders (apply merge-with + buildings)]
+                                                               (mapcat (fn [x] (apply #(repeat %2 %) x))
+                                                                       (select-keys orders (keys orders))))))
+                                     (map keys items/stores))]
+                      (into {} (reverse (sort-by #(first (vals %))
+                                                 (remove #(zero? (first (vals %)))
+                                                         store)))))})
+     :read-only true}]
+    [:textarea
+     {:rows      5
+      :cols      50
+      :value
+      (str  {:factories (reverse (sort-by #(first (vals %))
+                                          (for [m items/materials]
+                                            {m (Math/round (/ (items/n m (let [orders (apply merge-with + buildings)]
+                                                                           (mapcat (fn [x] (apply #(repeat %2 %) x))
+                                                                                   (select-keys orders (keys orders)))))
+                                                              5.0))})))})
+      :read-only true}]]]])
+
+
 
 (defn render []
   (rdom/render [app]
