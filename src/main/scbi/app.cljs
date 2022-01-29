@@ -245,8 +245,7 @@
      [:svg {:xmlns "http://www.w3.org/2000/svg", :width "77.3", :height "77.3", :viewBox "0 0 77.3 79"}
      [:g (get-in items [row col])
       [:text  {:x 70 :y 72 :font-size 18 :text-anchor "right" :font-weight "bold" :fill "black"}
-       (count-item (get @upgrades @building) row col)]
-      ]]))
+       (count-item (get @upgrades @building) row col)]]]))
 [:p]
   ;;total items by store
   (into [:div]
@@ -258,12 +257,14 @@
   [:p]
 ;; total materials by factory
 (into [:div]
-      (for [[k v] (apply merge (reverse (sort-by #(first (vals %))
-                                                 (remove #(zero? (first (vals %)))
-                                                         (for [m items/materials]
-                                                           {m (items/n m (let [orders (apply merge-with + (buildings))]
-                                                                           (mapcat (fn [x] (apply #(repeat %2 %) x))
-                                                                                   (select-keys orders (keys orders)))))})))))]
+      (for [[k v] 
+            (reverse (sort-by last
+                              (apply merge
+                                     (remove #(zero? (first (vals %)))
+                                             (for [m items/materials]
+                                               {m (items/n m (let [orders (apply merge-with + (buildings))]
+                                                               (mapcat (fn [x] (apply #(repeat %2 %) x))
+                                                                       (select-keys orders (keys orders)))))})))))]
         (str v " " (name k) " ")))]])
 
 (defn render []
