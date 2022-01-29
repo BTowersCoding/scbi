@@ -155,6 +155,14 @@
                       :when     (pos? (count-item (get @upgrades building) row col))]
                   [(keyword (get-in item-names [row col])) (count-item (get @upgrades building) row col)])))))
 
+(def store-names
+  ["building-supplies" "hardware" "fashion" "furniture" "farmers-market" "gardening-supplies" "donut-shop" "fast-food" "home-appliances"])
+
+(zipmap store-names (map (fn [s] (items/parts s  (let [orders (apply merge-with + buildings)]
+                                                   (mapcat (fn [x] (apply #(repeat %2 %) x))
+                                                           (select-keys orders (keys orders))))))
+                         (map keys items/stores)))
+
 (defn app []
   [:div#app
    [:div#grid
@@ -257,8 +265,6 @@
                                                                                    (select-keys orders (keys orders)))))
                                                               5.0))})))})
       :read-only true}]]]])
-
-
 
 (defn render []
   (rdom/render [app]
