@@ -849,3 +849,74 @@ clj꞉scbi.app꞉> 
 clj꞉scbi.app꞉> 
 ({:chemicals 10} {:metal 10} {:minerals 5})
 clj꞉scbi.app꞉> 
+([:div [:span "hardware: "] [:span ("3 hammer " "5 measuring-tape " "9 cooking-utensils ")]] [:div [:span "farmers-market: "] [:span ("9 beef " "23 flour-bag " "37 cream ")]] [:div [:span "donut-shop: "] [:span ("9 bread-roll " "1 coffee ")]] [:div [:span "fast-food: "] [:span ("9 burgers ")]] [:div [:span "building-supplies: "] [:span ("6 nails " "9 planks " "6 bricks " "9 glue ")]] [:div [:span "furniture: "] [:span ("3 tables ")]] [:div [:span "fashion: "] [:span ("3 watch " "5 business-suits ")]] [:div [:span "home-appliances: "] [:span ("9 bbq-grill " "4 tv ")]])
+clj꞉scbi.app꞉> 
+{"gardening-supplies" (), "hardware" ({:hammer 3} {:measuring-tape 5} {:cooking-utensils 9}), "farmers-market" ({:beef 9} {:flour-bag 23} {:cream 37}), "donut-shop" ({:bread-roll 9} {:coffee 1}), "fast-food" ({:burgers 9}), "building-supplies" ({:nails 6} {:planks 9} {:bricks 6} {:glue 9}), "furniture" ({:tables 3}), "fashion" ({:watch 3} {:business-suits 5}), "home-appliances" ({:bbq-grill 9} {:tv 4})}
+clj꞉scbi.app꞉> 
+("65 metal " "8 electrical-components " "12 minerals " "30 seeds " "21 chemicals " "46 plastic " "1 sugar-and-spices " "17 glass " "39 wood " "37 animal-feed " "43 textiles ")
+clj꞉scbi.app꞉> 
+{:metal 65, :electrical-components 8, :minerals 12, :seeds 30, :chemicals 21, :plastic 46, :sugar-and-spices 1, :glass 17, :wood 39, :animal-feed 37, :textiles 43}
+clj꞉scbi.app꞉> 
+[{:tables 3, :watch 3, :business-suits 2} {:tv 4, :flour-bag 5, :burgers 9, :bricks 6, :glue 4, :coffee 1, :business-suits 3, :glass 6, :planks 6}]
+clj꞉scbi.app꞉> 
+[{:tables 3, :watch 3, :business-suits 2} {:tv 4, :flour-bag 5, :burgers 9, :bricks 6, :glue 4, :coffee 1, :business-suits 3, :sugar-and-spices 9, :glass 6, :planks 6}]
+clj꞉scbi.app꞉> 
+(["metal" "wood" "plastic" "seeds" "minerals"] ["chemicals" "textiles" "sugar-and-spices" "glass" "animal-feed" "ic"])
+clj꞉scbi.app꞉> 
+(["metal" "wood" "plastic" "seeds" "minerals"] ["chemicals" "textiles" "sugar-and-spices" "glass" "animal-feed" "ic"])
+clj꞉scbi.app꞉> 
+("metal" "wood" "plastic" "seeds" "minerals" "chemicals" "textiles" "sugar-and-spices" "glass" "animal-feed" "ic")
+clj꞉scbi.app꞉> 
+#object[G__30553]
+clj꞉scbi.app꞉> 
+("metal" "wood" "plastic" "seeds" "minerals" "chemicals" "textiles" "sugar-and-spices" "glass" "animal-feed" "ic")
+clj꞉scbi.app꞉> 
+(:metal :wood :plastic :seeds :minerals :chemicals :textiles :sugar-and-spices :glass :animal-feed :ic)
+clj꞉scbi.app꞉> 
+[{:tables 3, :watch 3, :business-suits 2} {:tv 4, :flour-bag 5, :burgers 9, :bricks 6, :glue 4, :coffee 1, :business-suits 3, :sugar-and-spices 9, :glass 6, :planks 6}]
+clj꞉scbi.app꞉> 
+{:tv 4, :flour-bag 5, :cream 3, :burgers 13, :bricks 6, :glue 4, :coffee 1, :business-suits 3, :tables 3, :sugar-and-spices 9, :glass 6, :planks 6, :watch 3, :cheese-fries 9}
+clj꞉scbi.app꞉> 
+{"gardening-supplies" (), "hardware" ({:hammer 3} {:measuring-tape 5} {:cooking-utensils 13}), "farmers-market" ({:beef 13} {:vegetables 9} {:flour-bag 31} {:cream 56} {:cheese 9}), "donut-shop" ({:bread-roll 13} {:coffee 1}), "fast-food" ({:burgers 13} {:cheese-fries 9}), "building-supplies" ({:nails 6} {:planks 9} {:bricks 6} {:glue 9}), "furniture" ({:tables 3}), "fashion" ({:watch 3} {:business-suits 5}), "home-appliances" ({:bbq-grill 13} {:tv 4})}
+clj꞉scbi.app꞉> 
+(:metal :wood :plastic :seeds :minerals :chemicals :textiles :sugar-and-spices :glass :animal-feed :ic)
+clj꞉scbi.app꞉> 
+nil
+clj꞉scbi.app꞉> 
+nil
+; ------ REPL Error while processing ---------------------------------------------
+; (some? (set (map keyword (apply concat (take 2 item-names))))
+      (apply merge (buildings)))
+null
+Wrong number of args (2) passed to: cljs.core/some?
+clj꞉scbi.app꞉> 
+#{:metal :minerals :seeds :chemicals :ic :plastic :sugar-and-spices :glass :wood :animal-feed :textiles}
+clj꞉scbi.app꞉> 
+{:tv 4, :flour-bag 5, :cream 3, :burgers 13, :bricks 6, :glue 4, :coffee 1, :business-suits 3, :tables 3, :sugar-and-spices 9, :glass 6, :planks 6, :watch 3, :cheese-fries 9}
+clj꞉scbi.app꞉> 
+nil
+; ------ WARNING - :fn-arity -----------------------------------------------------
+;  Resource: <eval>:1:1
+ Wrong number of args (2) passed to cljs.core/any?
+--------------------------------------------------------------------------------
+
+clj꞉scbi.app꞉> 
+nil
+; ------ WARNING - :undeclared-var -----------------------------------------------
+;  Resource: <eval>:1:2
+ Use of undeclared Var scbi.app/any
+--------------------------------------------------------------------------------
+
+clj꞉scbi.app꞉> 
+{:tv 4, :flour-bag 5, :cream 3, :burgers 13, :bricks 6, :glue 4, :coffee 1, :business-suits 3, :tables 3, :sugar-and-spices 9, :glass 6, :planks 6, :watch 3, :cheese-fries 9}
+clj꞉scbi.app꞉> 
+false
+clj꞉scbi.app꞉> 
+4
+clj꞉scbi.app꞉> 
+{:sugar-and-spices 9, :glass 6}
+clj꞉scbi.app꞉> 
+{:metal 85, :electrical-components 8, :minerals 12, :seeds 56, :chemicals 21, :plastic 54, :sugar-and-spices 10, :glass 17, :wood 47, :animal-feed 74, :textiles 51}
+clj꞉scbi.app꞉> 
+{:metal 85, :electrical-components 8, :minerals 12, :seeds 56, :chemicals 21, :plastic 54, :sugar-and-spices 19, :glass 23, :wood 47, :animal-feed 74, :textiles 51}
+clj꞉scbi.app꞉> 
