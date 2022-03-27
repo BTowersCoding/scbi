@@ -8,6 +8,16 @@ It's very important to talk about FarmVille, from which the game inherits its ex
 
 I actually hate the game in so many ways and feel like an addict for continuing to play it. In truth it is a form of escape, because in real life I have relatively few resources and little influence it feels great to be put in a position where I have the safety, freedom and power to build communities and see them flourish. For this reason it is especially depressing that even my power fantasy involves engaging with an entity that is literally trying to prey upon me by misleading me and exploiting my weaknesses.
 
+Oh what's that? You want links?
+
+https://kottke.org/16/07/the-behavioral-psychology-behind-freemium-mobile-games
+https://yukaichou.com/gamification-examples/farmville-game-mechanics-winning-addicting/
+https://medium.com/strategy-insider/https-medium-com-sk-sohamkulkarni-the-psychology-of-freemium-games-b66f68a51205
+https://uxplanet.org/the-psychology-of-freemium-games-69024d80273b
+https://www.psychguides.com/interact/the-psychology-of-freemium/
+
+The way I think that I can turn this power around for "good" would be to use it as a data science project. Can you hear Satan laughing?
+
 ## Development
 
 You'll likely want to change the name from `shadow-reagent` to whatever your project is called. Here's where you need to do that:
