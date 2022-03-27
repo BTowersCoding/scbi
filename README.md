@@ -1,6 +1,10 @@
 # scbi
 
-Like the [official quickstart](https://github.com/thheller/shadow-cljs), but without the extra steps.
+This game is genuinely addictive due to its very carefully tuned slot-machine mechanics. This project began as a way to aid in production strategies. Now I'm more interested in using it to study the game's data model, and possibly shed some light on what characteristics are involved in creating something so endlessly engaging.
+
+I actually was under an illusion that I was the only one still playing the game since it came out in 2013. But then I found there is a discord and reddit community for it and my entire worldview shifted.
+
+It's very important to talk about FarmVille, from which the game inherits its exploitative mechanics. I actually hate the game in so many ways and feel like an addict for continuing to play it. In truth it is a form of escape, because in real life I have relatively few resources and little influence it feels great to be put in a position where I have the safety, freedom and power to build communities and see them flourish. For this reason it is especially depressing that even my power fantasy involves engaging with an entity that is literally trying to prey upon me by misleading me and exploiting my weaknesses.
 
 ## Development
 
